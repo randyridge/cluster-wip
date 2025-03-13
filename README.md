@@ -162,7 +162,7 @@ Screenshot from [Cloudflare Dashboard](https://dash.cloudflare.com/):
 
 # Step 5: Talos ISO download
 
-- This is the talos ISO I endeded up with: [Talos ISO](https://factory.talos.dev/?arch=amd64&cmdline-set=true&extensions=-&platform=metal&target=metal&version=1.9.4)
+- This is the talos ISO I ended up with: [Talos ISO](https://factory.talos.dev/?arch=amd64&cmdline-set=true&extensions=-&platform=metal&target=metal&version=1.9.4)
 
 # Step 6: VM setup
 
