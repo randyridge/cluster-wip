@@ -79,14 +79,14 @@ mise install
 ---
 
 Screenshot from [API Tokens - Cloudflare](https://dash.cloudflare.com/profile/api-tokens):
-![create token](1-cf-create-token.jpg)
+![create token](img/cf-create-token.jpg)
 
 - I did not follow the cluster-template directions here which suggest using the Edit zone DNS template
 
 ---
 
 Screenshot from [API Tokens - Cloudflare](https://dash.cloudflare.com/profile/api-tokens):
-![Edit zone DNS template](2-cf-token-template.jpg)
+![Edit zone DNS template](img/cf-token-template.jpg)
 
 if you do this one you can't name it or somesuch...
 
@@ -96,7 +96,7 @@ if you do this one you can't name it or somesuch...
 
 Screenshot from [API Tokens - Cloudflare](https://dash.cloudflare.com/profile/api-tokens):
 
-![Custom template](3-cf-custom-token.jpg)
+![Custom template](img/cf-custom-token.jpg)
 
 - Following values
 
@@ -104,7 +104,7 @@ Screenshot from [API Tokens - Cloudflare](https://dash.cloudflare.com/profile/ap
 
 Screenshot from [API Tokens - Cloudflare](https://dash.cloudflare.com/profile/api-tokens):
 
-![Custom token values](4-cf-token-values.jpg)
+![Custom token values](img/cf-token-values.jpg)
 
 - Create token and **copy the token value somewhere handy**
 
@@ -112,7 +112,7 @@ Screenshot from [API Tokens - Cloudflare](https://dash.cloudflare.com/profile/ap
 
 Screenshot from [API Tokens - Cloudflare](https://dash.cloudflare.com/profile/api-tokens):
 
-![Token!](5-cf-token.jpg)
+![Token!](img/cf-token.jpg)
 
 - Verify I see my token in cloudflare
 
@@ -120,7 +120,7 @@ Screenshot from [API Tokens - Cloudflare](https://dash.cloudflare.com/profile/ap
 
 Screenshot from [API Tokens - Cloudflare](https://dash.cloudflare.com/profile/api-tokens):
 
-![Verify](6-cf-verify.jpg)
+![Verify](img/cf-verify.jpg)
 
 - Authorize cloudflared
 
@@ -142,7 +142,7 @@ cloudflared tunnel create --credentials-file cloudflare-tunnel.json kubernetes
 
 Screenshot from [Cloudflare Dashboard](https://dash.cloudflare.com/):
 
-![Search](7-cf-search-tunnels.jpg)
+![Search](img/cf-search-tunnels.jpg)
 
 - It should be there and listed as inactive
 
@@ -150,7 +150,7 @@ Screenshot from [Cloudflare Dashboard](https://dash.cloudflare.com/):
 
 Screenshot from [Cloudflare Dashboard](https://dash.cloudflare.com/):
 
-![Search](8-cf-tunnels.jpg)
+![Search](img/cf-tunnels.jpg)
 
 # Step 5: Talos ISO download
 
@@ -162,44 +162,44 @@ Screenshot from [Cloudflare Dashboard](https://dash.cloudflare.com/):
 
 ---
 
-![Hyper-V](9-hv.jpg)
+![Hyper-V](img/hv.jpg)
 
 
 - Named the VM Talos
 
 ---
 
-![Hyper-V name](10-hv-name.jpg)
+![Hyper-V name](img/hv-name.jpg)
 
 - Select Gen-2
 
 ---
 
-![Hyper-V gen2](11-hv-gen2.jpg)
+![Hyper-V gen2](img/hv-gen2.jpg)
 
 - Memory settings, 4GB + dynamic
 
 ---
 
-![Hyper-V memory](12-hv-mem.jpg)
+![Hyper-V memory](img/hv-mem.jpg)
 
 - Network settings, I use my pre-existing external switch
 
 ---
 
-![Hyper-V network](13-hv-net.jpg)
+![Hyper-V network](img/hv-net.jpg)
 
 - Disk settings, I used the defaults
 
 ---
 
-![Hyper-V disk](14-hv-disk.jpg)
+![Hyper-V disk](img/hv-disk.jpg)
 
 - Mount Talos ISO
 
 ---
 
-![Hyper-V iso](15-hv-iso.jpg)
+![Hyper-V iso](img/hv-iso.jpg)
 
 - Hit finish to make the Talos VM
 
@@ -207,13 +207,13 @@ Screenshot from [Cloudflare Dashboard](https://dash.cloudflare.com/):
 
 ---
 
-![Hyper-V secureboot](16-hv-sb.jpg)
+![Hyper-V secureboot](img/hv-sb.jpg)
 
 - In the VM's settings, I cut down on the number of cores allocated
 
 ---
 
-![Hyper-V cpu](17-hv-cpu.jpg)
+![Hyper-V cpu](img/hv-cpu.jpg)
 
 # Step 7: Start VM
 
@@ -284,13 +284,13 @@ Things will happen, you should see the Talos VM go into Installing state, you'll
 
 ---
 
-![Hyper-V iso none](18-hv-iso-none.jpg)
+![Hyper-V iso none](img/hv-iso-none.jpg)
 
 - I also change the boot order
 
 ---
 
-![Hyper-V boot order](19-hv-boot-order.jpg)
+![Hyper-V boot order](img/hv-boot-order.jpg)
 
 - Start the VM and your shell should complete and return control
 
@@ -326,7 +326,7 @@ At this point though, we still don't have our network namespace running, so we c
 
 Screenshot from [https://github.com/me/cluster/settings/keys](https://dash.cloudflare.com/):
 
-![Add deploy key](20-gh-add.jpg)
+![Add deploy key](img/gh-add.jpg)
 
 - Slap that green Add deploy key button
 
@@ -336,13 +336,13 @@ Screenshot from [https://github.com/me/cluster/settings/keys](https://dash.cloud
 
 Screenshot from [https://github.com/me/cluster/settings/keys](https://dash.cloudflare.com/):
 
-![Paste deploy key](21-gh-key.jpg)
+![Paste deploy key](img/gh-key.jpg)
 
 - Give it a name and paste in the content of `github-deploy.key.pub` and I gave it write access:
 
 Screenshot from [https://github.com/me/cluster/settings/keys](https://dash.cloudflare.com/):
 
-![Paste deploy key](22-gh-confirm.jpg)
+![Paste deploy key](img/gh-confirm.jpg)
 
 
 ```bash
