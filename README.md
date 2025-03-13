@@ -34,11 +34,15 @@ I have these existing domains on cloudflare that i'm going to use.  To start con
 
 ### trust yourself
 
+Let git know this is a safe space
+
 ```bash
 git config --global --add safe.directory /workspaces/cluster
 ```
 
 ### install updates and install nmap and dnsutils (for dig):
+
+Let's get our devcontainer up-to-date and install nmap and dig which we'll use later
 
 ```bash
 sudo apt-get update && sudo apt-get upgrade
@@ -49,6 +53,8 @@ sudo apt install dnsutils
 ```
 
 ### install mise:
+
+Let's install (mise)[https://github.com/jdx/mise] which appears to be some sort of rust tool to manage dependencies, cluster-template uses it, so we shall!
 
 ```bash
 sudo apt update -y && sudo apt install -y gpg sudo wget curl
@@ -69,9 +75,9 @@ echo 'eval "$(/usr/bin/mise activate bash)"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-### install required tools via mise:
+### install required tool dependencies via mise:
 
-i did this step in a weird order to try to resolve some sort of dependency issue, ymmv
+i did this step in a weird order to try to resolve some sort of dependency issue, ymmv.
 
 ```bash
 mise trust
@@ -227,7 +233,8 @@ You will need the 'schematic ID' for the Talos ISO you configure to download.
 
 # Step 7: Start VM
 
-- Just start the VM
+- Start the VM
+
 - Connect to the VM
 
 I note talos reports it's running on 192.168.0.167, which is my expected network 192.168.0.0/24, it correctly lists that it uses my gateway and dns that I expect from the virtual external switch.
@@ -257,7 +264,6 @@ cloudflare_ingress_addr: "192.168.0.43"
 ```
 
 - Fill out nodes.yaml
-
 
 ```yaml
 ---
