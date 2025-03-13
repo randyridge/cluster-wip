@@ -64,7 +64,7 @@ sudo apt update
 sudo apt install -y mise
 
 echo 'eval "$(/usr/bin/mise activate bash)"' >> ~/.bashrc
-# on above like I changed the path from the mise docs from ~/.local/bin/mise to /usr/bin/mise as that's where which mise tells me it is ¯\_(ツ)_/¯
+# on above line I changed the path from the mise docs from ~/.local/bin/mise to /usr/bin/mise as that's where which mise tells me it is ¯\_(ツ)_/¯
 
 source ~/.bashrc
 ```
