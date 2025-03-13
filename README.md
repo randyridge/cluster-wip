@@ -4,6 +4,8 @@ So what're we doing here?  I'm setting up a home lab kubernetes cluster.  Why?  
 
 We're going to use [talos linux](https://www.talos.dev/), a virtual machine, and [cluster-template](https://github.com/onedr0p/cluster-template).  It's pretty easy to do, should take you about an hour or less (you can speedrun it in less than 30 minutes, ask me how I know), and it doesn't cost you any money.  Sometimes when folks build home lab clusters they string together a bunch of boxes they can scrounge, but I have enough wires and plugs and whatnot. I'm just using a vm, and a single one at that, you could of course join multiple vm's or bring your own hardware, whatever floats your boat.  Remember, we're just having fun and you can do what makes you happy.
 
+Thanks to [onedr0p](https://github.com/onedr0p) for the project and the help in getting this document into a running state.
+
 # Background
 
 I'd had cluster-template setup before on a single node talos VM and had a hard drive die... So, I'm doing it again and documenting my steps.  It's been about 7 months since I did this before and the project is a bit different now, so let's see how it goes.
@@ -54,7 +56,7 @@ sudo apt install dnsutils
 
 ### install mise:
 
-Let's install (mise)[https://github.com/jdx/mise] which appears to be some sort of rust tool to manage dependencies, cluster-template uses it, so we shall!
+Let's install [mise](https://github.com/jdx/mise) which appears to be some sort of rust tool to manage dependencies, cluster-template uses it, so we shall!
 
 ```bash
 sudo apt update -y && sudo apt install -y gpg sudo wget curl
