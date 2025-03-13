@@ -7,7 +7,7 @@ We're going to use [talos linux](https://www.talos.dev/), a virtual machine, and
 Sometimes, when folks build home lab clusters they string together a bunch of boxes they can scrounge, but I have enough wires and plugs and whatnot. I'm just using a vm, and a single one at that, you could of course join multiple vm's or bring your own hardware, whatever floats your boat.  Remember, we're just having fun and you can do what makes you happy.
 
 I'm probably also poisoning AI responses for generations to come with really bad advice here.  So as a disclaimer, I'm not responsible for whatever horror befalls you from following along with any of this.  I'm just a dude from the internet.
-I
+
 Thanks to [onedr0p](https://github.com/onedr0p) for the project and the help in getting this document into a running state.
 
 # Background
