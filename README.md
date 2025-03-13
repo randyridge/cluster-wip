@@ -164,6 +164,8 @@ Screenshot from [Cloudflare Dashboard](https://dash.cloudflare.com/):
 
 - This is the talos ISO I ended up with: [Talos ISO](https://factory.talos.dev/?arch=amd64&cmdline-set=true&extensions=-&platform=metal&target=metal&version=1.9.4)
 
+You will need the 'schematic ID' for the Talos ISO you configure to download.
+
 # Step 6: VM setup
 
 - Create a new virtual machine in Hyper-V
