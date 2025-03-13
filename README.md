@@ -1,31 +1,36 @@
+# Intro
+
+So what're we doing here?  I'm setting up a home lab kubernetes cluster.  Why?  It's something to fiddle with...
+
+We're going to use [talos linux](https://www.talos.dev/), a virtual machine, and [cluster-template](https://github.com/onedr0p/cluster-template).  It's pretty easy to do, should take you about an hour or less (you can speedrun it in less than 30 minutes, ask me how I know), and it doesn't cost you any money.  Sometimes when folks build home lab clusters they string together a bunch of boxes they can scrounge, but I have enough wires and plugs and whatnot. I'm just using a vm, and a single one at that, you could of course join multiple vm's or bring your own hardware, whatever floats your boat.  Remember, we're just having fun and you can do what makes you happy.
+
 # Background
 
-I'd had cluster-template setup before on a single node talos VM and had a hard drive die... So, I'm doing it again.  It's been about 7 months since I did this before and the project is a bit different, so let's see how it goes.
+I'd had cluster-template setup before on a single node talos VM and had a hard drive die... So, I'm doing it again and documenting my steps.  It's been about 7 months since I did this before and the project is a bit different now, so let's see how it goes.
 
-For my starting point I am running windows 11 with vscode, hyper-v, docker desktop for windows, and wsl2 installed, typical consumer cable modem and an old router.  Despite being just a lowly windows user I am comfortable enough with linux and kubernetes, but it's not exactly my day job.
+For my starting point I am running windows 11 with vscode, hyper-v, docker desktop for windows, and wsl2 installed, typical consumer cable modem, and an old router.  Despite being just a lowly windows user I am comfortable enough with linux and kubernetes, but it's not exactly my day job.  I'm sure you can follow along with everything on a different platform, swap out hyper-v with whatever toots your horn.
 
-Why?  It's something to fiddle with... My goal is to host *www.me.com* and *www.mykid.com* all from the comfort of a vm running on windows while I play games on steam.  This seems perfectly reasonable and not at all overkill.
+My goal is to host some of my domains, apps, and services that I want, either internal or external, whether written by me or something 3rd party; all from the comfort of a vm running on windows while I play games on steam.  This seems perfectly reasonable and not at all overkill.  While a single node kubernetes cluster running on a vm on windows on a home cable modem isn't at all resilient or available (see above about my nvme dying), it is a reasonably portable and scalable solution starting point for playing along at home.
 
-I have these existing domains on cloudflare that i'm going to use.  To start configuring my cluster I'm going to start with *me.net*, which I also own.  I have removed all dns entries, api keys, and tunnels from cloudflare.
-
-I use a different order of operations than cluster-template, so I'll just call them steps and move on...
+I have these existing domains on cloudflare that i'm going to use.  To start configuring my cluster I'm going to start with a fictional *somedomain.net*.  I have removed all dns entries, api keys, and tunnels from cloudflare, but the domain is listed in cloudflare.
 
 # Step 1: Git setup
 
 - go to the [cluster-template](https://github.com/onedr0p/cluster-template)
-- slap the green 'use the template' button
-- create new private github repo: *github.com/me/cluster*
+- slap the green 'use the template' button and create a new repository
+- give it a name, I creatively chose 'cluster' so I end up with a repo of *github.com/me/cluster*
+- decide if you want your cluster to be public or private, i've chosen private
 - clone *github.com/me/cluster* locally
 
 # Step 2: Devcontainer install
 
 - open cloned repo dir in vscode
-- dev containers: reopen in container
+- dev containers: reopen in container, add configuration to workspace
 - choose Kubernetes local configuration container template, no other devcontainers extensions
 - vscode relaunches now in the dev container
 - install vscode extensions when prompted
 
-# Step 3: Devcontainer setup
+# Step 3: Devcontainer setup (to be run in your devcontainer shell)
 
 ### trust yourself
 
@@ -66,9 +71,12 @@ source ~/.bashrc
 
 ### install required tools via mise:
 
+i did this step in a weird order to try to resolve some sort of dependency issue, ymmv
+
 ```bash
 mise trust
-pip install pipx
+mise install
+pip install pipx 
 mise install
 ```
 
@@ -128,7 +136,7 @@ Screenshot from [API Tokens - Cloudflare](https://dash.cloudflare.com/profile/ap
 cloudflared tunnel login
 ```
 
-- Click the link in the shell, sign in, select the domain you want, in my case it's me.net, hit the authorize button, close tab when it says it's ok
+- Click the link in the shell, sign in, select the domain you want, in my case it's our fictional *somedomain.net*, hit the authorize button, close tab when it says it's ok
 
 - Create tunnel (this step will output a cloudflare-tunnel.json)
 
@@ -240,7 +248,8 @@ cluster_api_addr: "192.168.0.40"
 cluster_dns_gateway_addr: "192.168.0.41"
 cluster_ingress_addr: "192.168.0.42"
 repository_name: "me/cluster" # remember, I mentioned this way back in step 1
-cloudflare_domain: "me.net" # remember, I mentioned this before we got started
+repository_visibility: "private" # this was marked as optional and I missed it, if you're doing a private repo do this, otherwise set it to public
+cloudflare_domain: "somedomain.net" # our fictional domain
 cloudflare_token: "abunchofstuffgoeshere" # remember, we saved this somewhere handy way back in step 4
 cloudflare_ingress_addr: "192.168.0.43"
 ```
@@ -268,57 +277,14 @@ nodes:
 task configure
 ```
 
-# Step 9: Bootstrap Talos
-
-- Install talos
+- Push to git
 
 ```bash
-task bootstrap:talos
+git cm "initial" # i use fancy aliases, you do you
+git push
 ```
 
-Things will happen, you should see the Talos VM go into Installing state, you'll see some connection attempts refused in your shell, it's fine, just hang out.  The VM will reboot.  The VM should boot from iso again and mention to remove the disk and reboot
-
-- Stop the vm
-
-- Unmount the ISO
-
----
-
-![Hyper-V iso none](img/hv-iso-none.jpg)
-
-- I also change the boot order
-
----
-
-![Hyper-V boot order](img/hv-boot-order.jpg)
-
-- Start the VM and your shell should complete and return control
-
-# Step 10: Talos setup
-
-```bash
-task bootstrap:apps
-```
-
-You should see activity in your shell after a bit... Or you can kind of follow along in another terminal with:
-
-```bash
-kubectl get pods --all-namespaces --watch
-```
-
-Eventually you should get a congrats msg:
-
-"2025-03-12T21:13:24Z INFO Congrats! The cluster is bootstrapped and Flux is syncing the Git repository "
-
-```bash
-cilium status
-```
-
-It should say it's ok
-
-At this point though, we still don't have our network namespace running, so we carry on!
-
-# Step 12: Flux
+# Step 9: Add deployment key to github
 
 - Let's add our deploy key to our repo settings, in my case: [https://github.com/me/cluster/settings/keys](https://github.com/me/cluster/settings/keys)
 
@@ -344,16 +310,71 @@ Screenshot from [https://github.com/me/cluster/settings/keys](https://dash.cloud
 
 ![Paste deploy key](img/gh-confirm.jpg)
 
+# Step 10: Bootstrap Talos
+
+- Install talos
 
 ```bash
+task bootstrap:talos
+```
+
+Things will happen, you should see the Talos VM go into Installing state, you'll see some connection attempts refused in your shell, it's fine, just hang out.  The VM will reboot.  The VM should boot from iso again and mention to remove the disk and reboot
+
+- Stop the vm
+
+- Unmount the ISO
+
+---
+
+![Hyper-V iso none](img/hv-iso-none.jpg)
+
+- I also change the boot order
+
+---
+
+![Hyper-V boot order](img/hv-boot-order.jpg)
+
+- Start the VM and your shell should complete and return control
+
+# Step 11: Talos setup
+
+```bash
+task bootstrap:apps
+```
+
+You should see activity in your shell after a bit... Or you can kind of follow along in another terminal with:
+
+```bash
+kubectl get pods --all-namespaces --watch
+```
+
+Eventually you should get a congrats msg:
+
+"2025-03-12T21:13:24Z INFO Congrats! The cluster is bootstrapped and Flux is syncing the Git repository "
+
+At this point though, we still don't have our network namespace running, so we carry on!
+
+# Step 12: Flux
+
+```bash
+task reconcile # make sure flux is all connected to github
 flux check
 flux get sources git flux-system
 ```
 
-At this point I'm left with an authentication failure:
+# Step 13: Verify
 
-flux get sources git flux-system
-NAME            REVISION        SUSPENDED       READY   MESSAGE
-flux-system                     False           False   failed to checkout and determine revision: unable to list remote for 'https://github.com/me/cluster.git': authentication required: Repository not found.
+```bash
+cilium status # make sure cilium says it's ok
+nmap -Pn -n -p 443 ${cluster_ingress_addr} ${cloudflare_ingress_addr} -vv # grab these values from cluster.yaml, you should see open 443 ports
+dig @${cluster_dns_gateway_addr} echo.${cloudflare_domain} # grab these values from cluster.yaml, you should be able to internally resolve 
+kubectl -n cert-manager describe certificates # you should see your cert for *somedomain.net*
+```
 
-We will prevail!
+Huzzah!  At this point you should be on the lines!
+
+You should have your DNS entries in cloudflare for *somedomain.net*, you should see a CNAME entry for external.somedomain.net that goes to your cloudflared tunnel.  You should see a CNAME entry for echo.somedomain.net that goes to external.somedomain.net.  These are both publicly available on https, go try them out in your browser.
+
+I'd probably want to remove the echo server at some point. Perhaps replace that 404 on external with something else.  Next up though I want to host my super-awesome personal website, but I want to do that on *somedomain.com* and not *somedomain.net*.
+
+That'll be the next adventure.
