@@ -304,7 +304,7 @@ git push
 
 ---
 
-Screenshot from [https://github.com/me/cluster/settings/keys](https://dash.cloudflare.com/):
+Screenshot from [https://github.com/me/cluster/settings/keys](https://github.com/me/cluster/settings/keys):
 
 ![Add deploy key](img/gh-add.jpg)
 
@@ -314,13 +314,13 @@ Screenshot from [https://github.com/me/cluster/settings/keys](https://dash.cloud
 
 ---
 
-Screenshot from [https://github.com/me/cluster/settings/keys](https://dash.cloudflare.com/):
+Screenshot from [https://github.com/me/cluster/settings/keys](https://github.com/me/cluster/settings/keys):
 
 ![Paste deploy key](img/gh-key.jpg)
 
 - Give it a name and paste in the content of `github-deploy.key.pub` and I gave it write access:
 
-Screenshot from [https://github.com/me/cluster/settings/keys](https://dash.cloudflare.com/):
+Screenshot from [https://github.com/me/cluster/settings/keys](https://github.com/me/cluster/settings/keys):
 
 ![Paste deploy key](img/gh-confirm.jpg)
 
@@ -391,4 +391,4 @@ You should have your DNS entries in cloudflare for *somedomain.net*, you should 
 
 What a cluster!
 
-[Next time](../quiet-reflection/quiet-reflection.md) we'll reflect on where we're at.
+[Next time](../finish-up/finish-up.md) we'll reflect on where we're at and do some cleanup tasks.
