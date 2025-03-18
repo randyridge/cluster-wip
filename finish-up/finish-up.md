@@ -82,14 +82,6 @@ Finally, let's cleanup after cluster-template by running a tidy:
 task template:tidy
 ```
 
-- Push our current state to our repo
-```bash
-git cm "cleanup!"
-git push"
-```
-
-The cluster is all ours and we can start using it to do what we'd like!
-
 # SOPS & vs code
 
 I had an issue with the vscode extension working with sops installed via mise, so:
@@ -110,5 +102,13 @@ does 15 replacements in 9 files.  Next up, I'm going to lob a find and replace o
 Finally, SECRET_DOMAIN still exists encrypted in the */kubernetes/components/common/cluster-secrets.sops.yaml* file (in decrypted form), I also remove it from there
 with the vscode SOPS extension
 
+- Push our current state to our repo
+```bash
+git cm "cleanup!"
+git push"
+```
+# Fin
+
+The cluster is all ours and we can start using it to do what we'd like!
 
 [Next time](../next-time/next-time.md) we'll do something new...
