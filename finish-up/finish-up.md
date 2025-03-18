@@ -77,15 +77,38 @@ You'll likely see a new issue in your github repository with a link to the renov
 
 Finally, let's cleanup after cluster-template by running a tidy:
 
+- Get rid of the cluster-template things we don't need anymore.
 ```bash
 task template:tidy
 ```
 
+- Push our current state to our repo
 ```bash
 git cm "cleanup!"
 git push"
 ```
 
 The cluster is all ours and we can start using it to do what we'd like!
+
+# SOPS & vs code
+
+I had an issue with the vscode extension working with sops installed via mise, so:
+
+```bash
+curl -LO https://github.com/getsops/sops/releases/download/v3.9.4/sops-v3.9.4.linux.amd64
+sudo mv sops-v3.9.4.linux.amd64 /usr/local/bin/sops
+sudo chmod +x /usr/local/bin/sops
+```
+
+Then in vscode do a File / Settings / Extensions / Sops and change the Bin Path to `/usr/local/bin/sops`
+
+# Replace SECRET_DOMAIN
+
+I'm choosing to replace SECRET_DOMAIN, in cluster-template this is your main domain *somedomain.net* and is stored encrypted in your repo and as a cluster secret.
+Given our repo is private and I plan to add more domains in the future I'm going to yolo a find and replace on *${SECRET_DOMAIN}* with *somedomain.net*, for me, this
+does 15 replacements in 9 files.  Next up, I'm going to lob a find and replace of *${SECRET_DOMAIN/./-}* with *somedomain-net*, this does 4 replacements in 3 files.
+Finally, SECRET_DOMAIN still exists encrypted in the */kubernetes/components/common/cluster-secrets.sops.yaml* file (in decrypted form), I also remove it from there
+with the vscode SOPS extension
+
 
 [Next time](../next-time/next-time.md) we'll do something new...
