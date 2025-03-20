@@ -115,4 +115,4 @@ git push
 
 The cluster is all ours and we can start using it to do what we'd like!
 
-[Next time](../next-time/next-time.md) we'll do something new...
+[Next time](../echo-chamber/echo-chamber.md) we'll have to say goodbye to an old friend.
