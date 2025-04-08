@@ -22,3 +22,27 @@ repo, it's just not referenced anymore.
 
 ![vscode](img/vs-hello.jpg)
 
+Let's search for echo inside our hello folder:
+
+---
+
+![vscode](img/vs-hello-echo.jpg)
+
+So we can see that we'll have to change at least these two files...
+
+* Let's change `kubernetes/apps/default/hello/ks.yaml`
+
+This defines our kubernetes app, if we replace echo with hello then we've defined a new hello
+app!
+
+---
+
+![vscode](img/vs-replace-echo.jpg)
+
+* Let's change `kubernetes/apps/default/hello/app/helmrelease.yaml`
+
+ Here we're going to define what our app is supposed to do.  To start let's deploy a simple
+ hello world web app!  Hold on, isn't that basically what echo did?  Absolutely!  But this is
+ going to be so much better.
+
+
